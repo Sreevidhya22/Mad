@@ -1,0 +1,49 @@
+package com.example.project1;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    private static final String VALID_USERNAME = "user";
+    private static final String VALID_PASSWORD = "password";
+
+    EditText usernameEditText;
+    EditText passwordEditText;
+    Button loginButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main); // Make sure this matches your XML filename
+
+        // Initialize UI components
+        usernameEditText = findViewById(R.id.usernameEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        loginButton = findViewById(R.id.loginButton);
+
+        // Set up login button click listener
+        loginButton.setOnClickListener(v -> {
+            String enteredUsername = usernameEditText.getText().toString();
+            String enteredPassword = passwordEditText.getText().toString();
+
+            if (isValidCredentials(enteredUsername, enteredPassword)) {
+                showToast("Login Successful");
+            } else {
+                showToast("Invalid Credentials");
+            }
+        });
+    }
+
+    private boolean isValidCredentials(String enteredUsername, String enteredPassword) {
+        return VALID_USERNAME.equals(enteredUsername) && VALID_PASSWORD.equals(enteredPassword);
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+}
